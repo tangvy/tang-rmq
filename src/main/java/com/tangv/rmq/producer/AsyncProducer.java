@@ -31,11 +31,13 @@ public class AsyncProducer {
                 final int index = i;
                 Message msg = new Message("async_topic","tagA","orderID"+100*i*i,"HelloWorld".getBytes(RemotingHelper.DEFAULT_CHARSET));
                 producer.send(msg, new SendCallback() {
+                    @Override
                     public void onSuccess(SendResult sendResult) {
                         System.out.printf("%-10d OK %s %n", index,
                                 sendResult.getMsgId());
                     }
 
+                    @Override
                     public void onException(Throwable throwable) {
                         System.out.printf("%-10d Exception %s %n", index, throwable);
                         throwable.printStackTrace();
